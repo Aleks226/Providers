@@ -1,38 +1,62 @@
 openapi: 3.0.3
 info:
-  title: Ensi Backend Skeleton (Replace me)
+  title: Provides service
   contact:
     name: API Support
     url: https://ensi.tech/contacts
     email: mail@greensight.ru
   version: 1.0.0
-  description: Ensi Backend Skeleton Description (Replace me)
+  description: Provides service description
 servers:
   - url: /api/v1
 tags:
-  - name: examples
-    description: Тэг-пример
+  - name: item
+    description: Item
 paths:
-  /examples/{id}:
+  /item:
+    post:
+      tags:
+        - item
+      operationId: createItem
+      x-lg-handler: 'App\Http\ApiV1\Modules\Item\Controllers\ItemController@create'
+      summary: Create объекта типа Item
+      description: Create объекта типа Item dascription
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: './item/item.yaml#/CreateItemRequest'
+      responses:
+        "201":
+          description: Успешный ответ
+          content:
+            application/json:
+              schema:
+                $ref: './item/item.yaml#/ItemResponse'
+        "400":
+          $ref: '#/components/responses/BadRequest'
+        "500":
+          $ref: '#/components/responses/ServerError'
+          
+  /item/{id}:
     get:
       tags:
-        - examples
-      operationId: getExample
-      x-lg-handler: 'App\Http\ApiV1\Modules\Foos\Controllers\FoosController@get'
-      x-lg-route-name: 'getExample'
+        - item
+      operationId: getItem
+      x-lg-handler: 'App\Http\ApiV1\Modules\Item\Controllers\ItemController@get'
+      x-lg-route-name: 'getItem'
       x-lg-skip-request-generation: true
-      summary: Получение объекта типа Example
-      description: Получение объекта типа Example
+      summary: Получение объекта типа Item
+      description: Получение объекта типа Item dascription
       parameters:
         - $ref: '#/components/parameters/PathId'
-        - $ref: '#/components/parameters/QueryInclude'
       responses:
-        #"200":
-          #description: Успешный ответ
-          # content:
-          #  application/json:
-          #    schema:
-          #      $ref: './customers.yaml#/CustomerResponse'
+        "200":
+          description: Успешный ответ
+          content:
+            application/json:
+              schema:
+                $ref: './item/item.yaml#/ItemResponse'
         "404":
           $ref: '#/components/responses/NotFound'
         "500":

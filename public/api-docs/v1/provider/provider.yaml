@@ -1,0 +1,21 @@
+Provider:
+  type: object
+  properties:
+    id:
+      type: integer
+      description: ID
+    exists_count:
+      type: integer
+      description: Exists count
+  required:
+    - id
+    
+ProviderResponse:
+  type: object
+  properties:
+    data:
+      $ref: '#/Provider'
+    meta:
+      type: object
+  required:
+    - data
