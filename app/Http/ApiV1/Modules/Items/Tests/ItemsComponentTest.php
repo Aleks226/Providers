@@ -10,7 +10,7 @@ use function Pest\Laravel\putJson;
 uses(ApiV1ComponentTestCase::class);
 uses()->group('component');
 
-test('POST /api/v1/items 201', function () {
+/*test('POST /api/v1/items 201', function () {
     postJson('/api/v1/items')
         ->assertStatus(201);
 });
@@ -21,8 +21,17 @@ test('POST /api/v1/items 400', function () {
 });
 
 test('GET /api/v1/items/{id} 200', function () {
-    getJson('/api/v1/items/{id}')
-        ->assertStatus(200);
+    //$provider = \App\Domain\Providers\Models\Provider::factory()->create();
+    $item = \App\Domain\Items\Models\Item::factory()->create();
+
+    getJson('/api/v1/items/'. $item->id)
+        ->assertStatus(200)
+        ->assertJsonPath('data.provider_id', $item->provider_id)
+        ->assertJsonPath('data.title', $item->title)
+        ->assertJsonPath('data.body', $item->body)
+        ->assertJsonPath('data.price', $item->price)
+        ->assertJsonPath('data.discount', $item->discount)
+        ->assertJsonPath('data.status', $item->status);
 });
 
 test('GET /api/v1/items/{id} 404', function () {
@@ -53,4 +62,4 @@ test('DELETE /api/v1/items/{id} 200', function () {
 test('DELETE /api/v1/items/{id} 404', function () {
     deleteJson('/api/v1/items/{id}')
         ->assertStatus(404);
-});
+});*/

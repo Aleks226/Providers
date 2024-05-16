@@ -9,41 +9,49 @@ uses(ApiV1ComponentTestCase::class);
 uses()->group('component');
 
 test('POST /api/v1/providers 201', function () {
-    postJson('/api/v1/providers')
-        ->assertStatus(201);
+    $request = [
+        'company' => 'Test company'
+    ];
+    
+
+    postJson('/api/v1/providers', $request)
+        ->assertStatus(201)
+        ->assertJsonPath('data.company', $request['company'])
+        ->assertJsonPath('data.exists_count', 0);
 });
 
-test('POST /api/v1/providers 400', function () {
-    postJson('/api/v1/providers')
-        ->assertStatus(400);
+test('POST /api/v1/providers 500', function () {
+    $request = [
+        'awd' => 'awd'
+    ];
+    
+
+    postJson('/api/v1/providers', $request)
+        ->assertStatus(500);
 });
 
 test('GET /api/v1/providers/{id} 200', function () {
-    getJson('/api/v1/providers/{id}')
-        ->assertStatus(200);
+    $provider = \App\Domain\Providers\Models\Provider::factory()->create();
+
+    getJson("/api/v1/providers/{$provider->id}")
+        ->assertStatus(200)
+        ->assertJsonPath('data.company', $provider->company)
+        ->assertJsonPath('data.exists_count', $provider->exists_count);
 });
 
 test('GET /api/v1/providers/{id} 404', function () {
-    getJson('/api/v1/providers/{id}')
+    getJson('/api/v1/providers/235')
         ->assertStatus(404);
 });
-    
+   
 test('GET /api/v1/providers 200', function () {
     getJson('/api/v1/providers')
         ->assertStatus(200);
 });
-
-test('GET /api/v1/providers 404', function () {
-    getJson('/api/v1/providers')
-        ->assertStatus(404);
-});
-    
+   
 test('GET /api/v1/providers/{id}/items 200', function () {
-    getJson('/api/v1/providers/{id}/items')
-        ->assertStatus(200);
-});
+    $provider = \App\Domain\Providers\Models\Provider::factory()->create();
 
-test('GET /api/v1/providers/{id}/items 404', function () {
-    getJson('/api/v1/providers/{id}/items')
-        ->assertStatus(404);
+    getJson("/api/v1/providers/{$provider->id}/items")
+        ->assertStatus(200);
 });

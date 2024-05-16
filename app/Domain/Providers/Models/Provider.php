@@ -15,6 +15,7 @@ class Provider extends Model
 {
     protected $table = 'providers';
     public $timestamps = false;
+    public $exists_count = 0;
     protected $fillable = ['company'];
     
     public static function factory(): ProviderFactory
