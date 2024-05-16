@@ -62,6 +62,55 @@ paths:
         "500":
           $ref: '#/components/responses/ServerError'
           
+    put:
+      tags:
+        - providers
+      operationId: updateProvider
+      x-lg-handler: 'App\Http\ApiV1\Modules\Providers\Controllers\ProvidersController@update'
+      summary: Update объекта типа Provider
+      description: Update объекта типа Provider description
+      parameters:
+        - $ref: '#/components/parameters/PathId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: './providers/providers.yaml#/UpdateProviderRequest'
+      responses:
+        "200":
+          description: Успешный ответ
+          content:
+            application/json:
+              schema:
+                $ref: './providers/providers.yaml#/ProviderResponse'
+        "400":
+          $ref: '#/components/responses/BadRequest'
+        "404":
+          $ref: '#/components/responses/NotFound'
+        "500":
+          $ref: '#/components/responses/ServerError'
+          
+    delete:
+      tags:
+        - providers
+      operationId: deleteProvider
+      x-lg-handler: 'App\Http\ApiV1\Modules\Providers\Controllers\ProvidersController@delete'
+      summary: Delete объекта типа Provider
+      description: Delete объекта типа Provider description
+      parameters:
+        - $ref: '#/components/parameters/PathId'
+      responses:
+        "200":
+          description: Успешный ответ
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmptyDataResponse'
+        "404":
+          $ref: '#/components/responses/NotFound'
+        "500":
+          $ref: '#/components/responses/ServerError'
+          
 components:
   parameters:
     QueryInclude:

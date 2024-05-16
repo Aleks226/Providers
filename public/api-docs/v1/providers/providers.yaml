@@ -6,6 +6,14 @@ CreateProviderRequest:
       description: Provider company name
       example: Company
       
+UpdateProviderRequest:
+  type: object
+  properties:
+    company:
+      type: string
+      description: Provider company name
+      example: Company
+      
 Provider:
   type: object
   properties:

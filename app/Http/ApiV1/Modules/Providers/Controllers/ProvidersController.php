@@ -7,6 +7,7 @@ use App\Domain\Providers\Models\Provider;
 use App\Http\ApiV1\Modules\Providers\Requests\CreateProviderRequest;
 use App\Http\ApiV1\Modules\Providers\Resources\ProvidersResource;
 
+use Illuminate\Http\Request;
 
 class ProvidersController
 {
@@ -25,5 +26,31 @@ class ProvidersController
         $provider = Provider::query()->findOrFail($id);
         
         return new ProvidersResource($provider);
+    }
+    
+    public function delete(int $id)
+    {
+        $provider = Provider::find($id);
+        if (!$provider) {
+            return response()->json(['message' => 'Provider not found'], 404);
+        }
+
+        $provider->delete();
+        return response()->json(['message' => 'Provider deleted'], 200);
+    }
+    
+    public function update(Request $request,int $id)
+    {
+        $provider = Provider::find($id);
+        if (!$provider) {
+            return response()->json(['message' => 'Provider not found'], 404);
+        }
+
+        $validatedData = $request->validate([
+            'company' => 'required|string'
+        ]);
+
+        $provider->update($validatedData);
+        return response()->json($provider, 200);
     }
 }
