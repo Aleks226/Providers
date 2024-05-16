@@ -12,6 +12,8 @@ servers:
 tags:
   - name: providers
     description: Providers
+  - name: items
+    description: Items
 paths:      
   /providers:
     post:
@@ -110,6 +112,106 @@ paths:
           $ref: '#/components/responses/NotFound'
         "500":
           $ref: '#/components/responses/ServerError'
+     
+     
+  /items:
+    post:
+      tags:
+        - items
+      operationId: createItem
+      x-lg-handler: 'App\Http\ApiV1\Modules\Items\Controllers\ItemsController@create'
+      summary: Create объекта типа Item
+      description: Create объекта типа Item description
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: './items/items.yaml#/CreateItemRequest'
+      responses:
+        "201":
+          description: Успешный ответ
+          content:
+            application/json:
+              schema:
+                $ref: './items/items.yaml#/ItemResponse'
+        "400":
+          $ref: '#/components/responses/BadRequest'
+        "500":
+          $ref: '#/components/responses/ServerError' 
+          
+  /items/{id}:
+    get:
+      tags:
+        - items
+      operationId: getItem
+      x-lg-handler: 'App\Http\ApiV1\Modules\Items\Controllers\ItemsController@get'
+      x-lg-route-name: 'getItem'
+      x-lg-skip-request-generation: true
+      summary: Получение объекта типа Item
+      description: Получение объекта типа Item description
+      parameters:
+        - $ref: '#/components/parameters/PathId'
+      responses:
+        "200":
+          description: Успешный ответ
+          content:
+            application/json:
+              schema:
+                $ref: './items/items.yaml#/ItemResponse'
+        "404":
+          $ref: '#/components/responses/NotFound'
+        "500":
+          $ref: '#/components/responses/ServerError'
+          
+    put:
+      tags:
+        - items
+      operationId: updateItem
+      x-lg-handler: 'App\Http\ApiV1\Modules\Items\Controllers\ItemsController@update'
+      summary: Update объекта типа Item
+      description: Update объекта типа Item description
+      parameters:
+        - $ref: '#/components/parameters/PathId'
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: './items/items.yaml#/UpdateItemRequest'
+      responses:
+        "200":
+          description: Успешный ответ
+          content:
+            application/json:
+              schema:
+                $ref: './items/items.yaml#/ItemResponse'
+        "400":
+          $ref: '#/components/responses/BadRequest'
+        "404":
+          $ref: '#/components/responses/NotFound'
+        "500":
+          $ref: '#/components/responses/ServerError'
+          
+    delete:
+      tags:
+        - items
+      operationId: deleteItem
+      x-lg-handler: 'App\Http\ApiV1\Modules\Items\Controllers\ItemsController@delete'
+      summary: Delete объекта типа Item
+      description: Delete объекта типа Item description
+      parameters:
+        - $ref: '#/components/parameters/PathId'
+      responses:
+        "200":
+          description: Успешный ответ
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EmptyDataResponse'
+        "404":
+          $ref: '#/components/responses/NotFound'
+        "500":
+          $ref: '#/components/responses/ServerError'
+     
           
 components:
   parameters:

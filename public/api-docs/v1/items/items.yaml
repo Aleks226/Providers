@@ -1,0 +1,80 @@
+CreateItemRequest:
+  type: object
+  properties:
+    provider_id:
+      type: integer
+      description: Item provider ID
+      example: 12
+    title:
+      type: string
+      description: Item title
+      example: Title
+    body:
+      type: string
+      description: Item body
+      example: Body
+    price:
+      type: integer
+      description: Item price
+      example: 1000
+    discount:
+      type: integer
+      description: Item discount
+      example: 10
+      
+UpdateItemRequest:
+  type: object
+  properties:
+    title:
+      type: string
+      description: Item title
+      example: Title
+    body:
+      type: string
+      description: Item body
+      example: Body
+    price:
+      type: integer
+      description: Item price
+      example: 1000
+    discount:
+      type: integer
+      description: Item discount
+      example: 10
+      
+Item:
+  type: object
+  properties:
+    id:
+      type: integer
+      description: ID
+    provider_id:
+      type: integer
+      description: Item provider ID
+    title:
+      type: string
+      description: Item title
+    body:
+      type: string
+      description: Item body
+    price:
+      type: integer
+      description: Item price
+    discount:
+      type: integer
+      description: Item discount
+    status:
+      type: string
+      description: Item status
+  required:
+    - id
+    
+ItemResponse:
+  type: object
+  properties:
+    data:
+      $ref: '#/Item'
+    meta:
+      type: object
+  required:
+    - data
