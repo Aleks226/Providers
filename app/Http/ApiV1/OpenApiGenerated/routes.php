@@ -9,10 +9,13 @@ use App\Http\ApiV1\Modules\Items\Controllers\ItemsController;
 use App\Http\ApiV1\Modules\Providers\Controllers\ProvidersController;
 use Illuminate\Support\Facades\Route;
 
+Route::get('providers', [ProvidersController::class, 'getAll']);
 Route::post('providers', [ProvidersController::class, 'create']);
 Route::get('providers/{id}', [ProvidersController::class, 'get'])->name('getProvider');
 Route::put('providers/{id}', [ProvidersController::class, 'update']);
 Route::delete('providers/{id}', [ProvidersController::class, 'delete']);
+Route::get('providers/{id}/items', [ProvidersController::class, 'getAllItems']);
+Route::get('items', [ItemsController::class, 'getAll']);
 Route::post('items', [ItemsController::class, 'create']);
 Route::get('items/{id}', [ItemsController::class, 'get'])->name('getItem');
 Route::put('items/{id}', [ItemsController::class, 'update']);

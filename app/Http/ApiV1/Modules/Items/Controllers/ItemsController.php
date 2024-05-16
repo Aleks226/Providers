@@ -62,4 +62,9 @@ class ItemsController
         $item->update($validatedData);
         return response()->json($item, 200);
     }
+    
+    public function getAll()
+    {
+        return response()->json(Item::all(), 200);
+    }
 }

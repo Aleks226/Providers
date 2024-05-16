@@ -4,9 +4,12 @@ namespace App\Http\ApiV1\Modules\Providers\Controllers;
 
 use App\Domain\Providers\Actions\CreateProviderAction;
 use App\Domain\Providers\Models\Provider;
+use App\Domain\Items\Models\Item;
 use App\Http\ApiV1\Modules\Providers\Requests\CreateProviderRequest;
+use App\Http\ApiV1\Modules\Providers\Requests\DeleteProviderRequest;
+use App\Http\ApiV1\Modules\Providers\Requests\UpdateProviderRequest;
 use App\Http\ApiV1\Modules\Providers\Resources\ProvidersResource;
-
+use Illuminate\Contracts\Support\Responsable;
 use Illuminate\Http\Request;
 
 class ProvidersController
@@ -52,5 +55,17 @@ class ProvidersController
 
         $provider->update($validatedData);
         return response()->json($provider, 200);
+    }
+
+    public function getAll()
+    {
+        return response()->json(Provider::all(), 200);
+    }
+
+    public function getAllItems(int $id)
+    {
+        $items = Item::where('provider_id', $id)->get();
+        
+        return response()->json($items, 200);
     }
 }

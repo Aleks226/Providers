@@ -39,6 +39,27 @@ paths:
           $ref: '#/components/responses/BadRequest'
         "500":
           $ref: '#/components/responses/ServerError' 
+
+    get:
+      tags:
+        - providers
+      operationId: getAllProviders
+      x-lg-handler: 'App\Http\ApiV1\Modules\Providers\Controllers\ProvidersController@getAll'
+      summary: Получение array типа Provider
+      description: Получение array типа Provider description
+      responses:
+        "200":
+          description: Успешный ответ
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: './providers/providers.yaml#/ProviderResponse'
+        "404":
+          $ref: '#/components/responses/NotFound'
+        "500":
+          $ref: '#/components/responses/ServerError'
           
   /providers/{id}:
     get:
@@ -113,6 +134,30 @@ paths:
         "500":
           $ref: '#/components/responses/ServerError'
      
+  /providers/{id}/items:
+     get:
+      tags:
+        - providers
+      operationId: getAllProviderItems
+      x-lg-handler: 'App\Http\ApiV1\Modules\Providers\Controllers\ProvidersController@getAllItems'
+      summary: Получение array типа Item by Provider
+      description: Получение array типа Item by Provider description
+      parameters:
+        - $ref: '#/components/parameters/PathId'
+      responses:
+        "200":
+          description: Успешный ответ
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: './items/items.yaml#/ItemResponse'
+        "404":
+          $ref: '#/components/responses/NotFound'
+        "500":
+          $ref: '#/components/responses/ServerError'
+     
      
   /items:
     post:
@@ -138,6 +183,27 @@ paths:
           $ref: '#/components/responses/BadRequest'
         "500":
           $ref: '#/components/responses/ServerError' 
+          
+    get:
+      tags:
+        - items
+      operationId: getAllItems
+      x-lg-handler: 'App\Http\ApiV1\Modules\Items\Controllers\ItemsController@getAll'
+      summary: Получение array типа Item
+      description: Получение array типа Item description
+      responses:
+        "200":
+          description: Успешный ответ
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: './items/items.yaml#/ItemResponse'
+        "404":
+          $ref: '#/components/responses/NotFound'
+        "500":
+          $ref: '#/components/responses/ServerError'
           
   /items/{id}:
     get:
