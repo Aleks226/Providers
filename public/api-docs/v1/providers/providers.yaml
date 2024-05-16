@@ -1,9 +1,20 @@
+CreateProviderRequest:
+  type: object
+  properties:
+    company:
+      type: string
+      description: Provider company name
+      example: Company
+      
 Provider:
   type: object
   properties:
     id:
       type: integer
       description: ID
+    company:
+      type: string
+      description: Provider company name
     exists_count:
       type: integer
       description: Exists count

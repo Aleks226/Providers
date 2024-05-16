@@ -1,53 +1,53 @@
 openapi: 3.0.3
 info:
-  title: Provides service
+  title: Providers service
   contact:
     name: API Support
     url: https://ensi.tech/contacts
     email: mail@greensight.ru
   version: 1.0.0
-  description: Provides service description
+  description: Providers service description
 servers:
   - url: /api/v1
 tags:
-  - name: item
-    description: Item
-paths:
-  /item:
+  - name: providers
+    description: Providers
+paths:      
+  /providers:
     post:
       tags:
-        - item
-      operationId: createItem
-      x-lg-handler: 'App\Http\ApiV1\Modules\Item\Controllers\ItemController@create'
-      summary: Create объекта типа Item
-      description: Create объекта типа Item dascription
+        - providers
+      operationId: createProvider
+      x-lg-handler: 'App\Http\ApiV1\Modules\Providers\Controllers\ProvidersController@create'
+      summary: Create объекта типа Provider
+      description: Create объекта типа Provider description
       requestBody:
         content:
           application/json:
             schema:
-              $ref: './item/item.yaml#/CreateItemRequest'
+              $ref: './providers/providers.yaml#/CreateProviderRequest'
       responses:
         "201":
           description: Успешный ответ
           content:
             application/json:
               schema:
-                $ref: './item/item.yaml#/ItemResponse'
+                $ref: './providers/providers.yaml#/ProviderResponse'
         "400":
           $ref: '#/components/responses/BadRequest'
         "500":
-          $ref: '#/components/responses/ServerError'
+          $ref: '#/components/responses/ServerError' 
           
-  /item/{id}:
+  /providers/{id}:
     get:
       tags:
-        - item
-      operationId: getItem
-      x-lg-handler: 'App\Http\ApiV1\Modules\Item\Controllers\ItemController@get'
-      x-lg-route-name: 'getItem'
+        - providers
+      operationId: getProvider
+      x-lg-handler: 'App\Http\ApiV1\Modules\Providers\Controllers\ProvidersController@get'
+      x-lg-route-name: 'getProvider'
       x-lg-skip-request-generation: true
-      summary: Получение объекта типа Item
-      description: Получение объекта типа Item dascription
+      summary: Получение объекта типа Provider
+      description: Получение объекта типа Provider description
       parameters:
         - $ref: '#/components/parameters/PathId'
       responses:
@@ -56,11 +56,12 @@ paths:
           content:
             application/json:
               schema:
-                $ref: './item/item.yaml#/ItemResponse'
+                $ref: './providers/providers.yaml#/ProviderResponse'
         "404":
           $ref: '#/components/responses/NotFound'
         "500":
           $ref: '#/components/responses/ServerError'
+          
 components:
   parameters:
     QueryInclude:
