@@ -66,7 +66,7 @@ class ProvidersController
         $result = [];
         foreach (Provider::all() as $provider) {
 	    $one['data'] = new ProvidersResource($provider);
-	    array($result, $one);
+	    array_push($result, $one);
 	}
         
         return response()->json($result, 200);

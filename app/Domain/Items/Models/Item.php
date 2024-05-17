@@ -21,6 +21,7 @@ use Illuminate\Database\Eloquent\Model;
 class Item extends Model
 {
     protected $table = 'items';
+    public $status = 'EXISTS';
     protected $fillable = ['title', 'body', 'price', 'discount', 'status'];
     
     public static function factory(): ItemFactory

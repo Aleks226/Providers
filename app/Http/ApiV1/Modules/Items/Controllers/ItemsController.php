@@ -19,12 +19,12 @@ class ItemsController
         $validate = $request->validated();
         $provider = Provider::find($validate['provider_id']);
         if (!$provider) {
-            return response()->json(['message' => 'Provider not found'], 404);
+            return response()->json(['data' => [], 'errors' => [['code' => '404', 'message' => 'Item not found']]], 404);
         }
         
         $item = $action->execute($validate);
         
-        return response()->json($item, 201);
+        return response()->json(['data' => new ItemsResource($item)], 201);
     }
 
     public function get(int $id): ItemsResource
@@ -38,7 +38,7 @@ class ItemsController
     {
         $item = Item::find($id);
         if (!$item) {
-            return response()->json(['message' => 'Item not found'], 404);
+            return response()->json(['data' => [], 'errors' => [['code' => '404', 'message' => 'Item not found']]], 404);
         }
 
         $item->delete();
@@ -49,7 +49,7 @@ class ItemsController
     {
         $item = Item::find($id);
         if (!$item) {
-            return response()->json(['message' => 'Item not found'], 404);
+            return response()->json(['data' => [], 'errors' => [['code' => '404', 'message' => 'Item not found']]], 404);
         }
 
         $validatedData = $request->validate([
@@ -66,9 +66,14 @@ class ItemsController
     public function getAll()
     {
         if(Item::count()==0) {
-            return response()->json(['message' => 'Item not found'], 404);
+            return response()->json(['data' => [], 'errors' => [['code' => '404', 'message' => 'Item not found']]], 404);
         }
+        $result = [];
+        foreach (Item::all() as $item) {
+	    $one['data'] = new ItemsResource($item);
+	    array_push($result, $one);
+	}
         
-        return response()->json(Item::all(), 200);
+        return response()->json($result, 200);
     }
 }
