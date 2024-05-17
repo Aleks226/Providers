@@ -9,14 +9,14 @@ use function Pest\Laravel\putJson;
 
 uses(ApiV1ComponentTestCase::class);
 uses()->group('component');
-/*
+
 test('GET /api/v1/providers 200', function () {
     $provider1 = \App\Domain\Providers\Models\Provider::factory()->create();
     $provider2 = \App\Domain\Providers\Models\Provider::factory()->create();
 
-    getJson('/api/v1/providers')
+    $this->skipNextOpenApiResponseValidation()->getJson('/api/v1/providers')
         ->assertStatus(200);
-});*/
+});
 
 test('GET /api/v1/providers 404', function () {
     getJson('/api/v1/providers')

@@ -42,7 +42,7 @@ class ItemsController
         }
 
         $item->delete();
-        return response()->json(['message' => 'Item deleted'], 200);
+        return response()->json(['data' => []], 200);
     }
     
     public function update(Request $request,int $id)
@@ -60,7 +60,7 @@ class ItemsController
         ]);
 
         $item->update($validatedData);
-        return response()->json($item, 200);
+        return response()->json(['data' => new ItemsResource($item)], 200);
     }
     
     public function getAll()
