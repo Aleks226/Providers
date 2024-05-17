@@ -35,8 +35,6 @@ paths:
             application/json:
               schema:
                 $ref: './providers/providers.yaml#/ProviderResponse'
-        "400":
-          $ref: '#/components/responses/BadRequest'
         "500":
           $ref: '#/components/responses/ServerError' 
 
@@ -106,8 +104,6 @@ paths:
             application/json:
               schema:
                 $ref: './providers/providers.yaml#/ProviderResponse'
-        "400":
-          $ref: '#/components/responses/BadRequest'
         "404":
           $ref: '#/components/responses/NotFound'
         "500":
@@ -179,8 +175,6 @@ paths:
             application/json:
               schema:
                 $ref: './items/items.yaml#/ItemResponse'
-        "400":
-          $ref: '#/components/responses/BadRequest'
         "500":
           $ref: '#/components/responses/ServerError' 
           
@@ -250,8 +244,6 @@ paths:
             application/json:
               schema:
                 $ref: './items/items.yaml#/ItemResponse'
-        "400":
-          $ref: '#/components/responses/BadRequest'
         "404":
           $ref: '#/components/responses/NotFound'
         "500":

@@ -35,18 +35,18 @@ class ProvidersController
     {
         $provider = Provider::find($id);
         if (!$provider) {
-            return response()->json(['message' => 'Provider not found'], 404);
+            return response()->json(['data' => [], 'errors' => [['code' => '404', 'message' => 'Provider not found']]], 404);
         }
 
         $provider->delete();
-        return response()->json(['message' => 'Provider deleted'], 200);
+        return response()->json(['data' => []], 200);
     }
     
     public function update(Request $request,int $id)
     {
         $provider = Provider::find($id);
         if (!$provider) {
-            return response()->json(['message' => 'Provider not found'], 404);
+            return response()->json(['data' => [], 'errors' => [['code' => '404', 'message' => 'Provider not found']]], 404);
         }
 
         $validatedData = $request->validate([
@@ -54,16 +54,30 @@ class ProvidersController
         ]);
 
         $provider->update($validatedData);
-        return response()->json($provider, 200);
+        return response()->json(['data' => new ProvidersResource($provider)], 200);
     }
 
     public function getAll()
     {
-        return response()->json(Provider::all(), 200);
+    	if(Provider::count()==0) {
+            return response()->json(['data' => [], 'errors' => [['code' => '404', 'message' => 'Provider not found']]], 404);
+        }
+        
+        $result = [];
+        foreach (Provider::all() as $provider) {
+	    $one['data'] = new ProvidersResource($provider);
+	    array($result, $one);
+	}
+        
+        return response()->json($result, 200);
     }
 
     public function getAllItems(int $id)
     {
+    	$provider = Provider::find($id);
+        if (!$provider) {
+            return response()->json(['data' => [], 'errors' => [['code' => '404', 'message' => 'Provider not found']]], 404);
+        }
         $items = Item::where('provider_id', $id)->get();
         
         return response()->json($items, 200);

@@ -65,6 +65,10 @@ class ItemsController
     
     public function getAll()
     {
+        if(Item::count()==0) {
+            return response()->json(['message' => 'Item not found'], 404);
+        }
+        
         return response()->json(Item::all(), 200);
     }
 }

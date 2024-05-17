@@ -12,7 +12,7 @@ class ProviderFactory extends BaseModelFactory
     public function definition(): array
     {
         return [
-            'company' => $this->faker->name()
+            'company' => $this->faker->title()
         ];
     }
 }
