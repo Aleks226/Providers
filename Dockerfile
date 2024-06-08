@@ -19,3 +19,11 @@ RUN curl -sS https://getcomposer.org/installer | php -- \
     --install-dir=/usr/local/bin
 
 WORKDIR /var/www
+
+COPY . .
+
+RUN chown -R www-data:www-data /var/www
+RUN chmod -R 755 /var/www/storage/logs
+
+EXPOSE 9000
+CMD ["php-fpm"]
