@@ -33,8 +33,6 @@ services:
       POSTGRES_DB: providers
       POSTGRES_USER: miet
       POSTGRES_PASSWORD: miet
-    ports:
-      - "8202:5432"
     networks:
       - providers
     container_name: providers-db
